@@ -1,9 +1,8 @@
 #include "odom_tf.hpp"
 
 odomTF::odomTF(ros::NodeHandle& nh) {
-    ros::init(argc, argv, "odometry_tf_publisher");
     nh_ = nh;
-    sub = nh_.subscribe("odom_data_euler", 1000, transformCallback);  
+    sub = nh_.subscribe("odom_data_euler", 1000, &odomTF::transformCallback, this);  
 }
 
 void odomTF::transformCallback(const nav_msgs::Odometry& odom) {
@@ -12,10 +11,13 @@ void odomTF::transformCallback(const nav_msgs::Odometry& odom) {
     odom_trans.header.frame_id = "odom";
     odom_trans.child_frame_id = "base_link";
 
+    // translation
     odom_trans.transform.translation.x = odom.pose.pose.position.x;
     odom_trans.transform.translation.y = odom.pose.pose.position.y;
     odom_trans.transform.translation.z = odom.pose.pose.position.z;
-    odom_trans.transform.rotation.z = odom.pose.pose.orientation.z;
+    // quaternion
+    geometry_msgs::Quaternion odom_quat = tf::createQuaternionMsgFromYaw(odom.pose.pose.orientation.z);
+    odom_trans.transform.rotation = odom_quat;
 
     //send the transform
     odom_broadcaster.sendTransform(odom_trans);
