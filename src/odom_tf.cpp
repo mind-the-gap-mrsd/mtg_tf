@@ -1,8 +1,10 @@
 #include "odom_tf.hpp"
 
-odomTF::odomTF(ros::NodeHandle& nh) {
+odomTF::odomTF(ros::NodeHandle& nh, const std::string robot_id): robot_id_(robot_id) {
     nh_ = nh;
-    sub = nh_.subscribe("odom_data_euler", 1000, &odomTF::transformCallback, this);  
+    sub = nh_.subscribe("odom_data_euler", 1000, &odomTF::transformCallback, this);
+    // Set prefix to make tf agent specific
+    nh_.setParam("tf_prefix", robot_id_.c_str());
 }
 
 void odomTF::transformCallback(const nav_msgs::Odometry& odom) {
