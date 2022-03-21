@@ -9,7 +9,7 @@ class odomTF {
     
 public:
     ~odomTF() = default;
-    odomTF(ros::NodeHandle& nh);
+    odomTF(ros::NodeHandle& nh, const std::string robot_id);
 
     void transformCallback(const nav_msgs::Odometry& odom);
 
@@ -17,6 +17,7 @@ private:
     ros::NodeHandle nh_;
     ros::Subscriber sub;
     tf::TransformBroadcaster odom_broadcaster;
+    const std::string robot_id_;
 };
 
 #endif
