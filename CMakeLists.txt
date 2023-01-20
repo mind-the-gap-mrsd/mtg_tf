@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(robosar_tf)
+project(mtg_tf)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -106,7 +106,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
   INCLUDE_DIRS include
-  LIBRARIES robosar_tf
+  LIBRARIES mtg_tf
   CATKIN_DEPENDS roscpp rospy std_msgs
   DEPENDS roscpp rospy std_msgs tf
 )
@@ -136,7 +136,7 @@ add_library(${PROJECT_NAME}
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/robosar_tf_new_node.cpp)
+# add_executable(${PROJECT_NAME}_node src/mtg_tf_new_node.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -200,7 +200,7 @@ target_link_libraries(${PROJECT_NAME}
 #############
 
 ## Add gtest based cpp test target and link libraries
-# catkin_add_gtest(${PROJECT_NAME}-test test/test_robosar_tf_new.cpp)
+# catkin_add_gtest(${PROJECT_NAME}-test test/test_mtg_tf_new.cpp)
 # if(TARGET ${PROJECT_NAME}-test)
 #   target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
 # endif()
